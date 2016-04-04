@@ -17,8 +17,10 @@ OBJ			=	$(SRC:%cpp=%o)
 	@echo -e "Compiling $<"
 	@$(CC) -c $(CPPFLAGS) $< -o $@
 
-$(NAME)	:	$(OBJ)
+print_msg:
 	@echo -e "\033[32mCompiling Plazza\033[00m"
+
+$(NAME)	:	print_msg $(OBJ)
 	@$(CC) $(OBJ) -o $(NAME) $(LFLAGS)
 	@echo -e "\033[33mPlazza Compiled\033[00m"
 
