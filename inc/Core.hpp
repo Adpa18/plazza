@@ -3,11 +3,13 @@
 
 class Core {
 private:
-    /* data */
+    int			nbThreads;
 public:
     Core ();
+    Core (int);
     virtual ~Core ();
-
+    int			getNbThreads() const;
+    void		setNbThreads(int);
 };
 
 #endif /* !CORE_HPP */

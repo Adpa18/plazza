@@ -3,11 +3,13 @@
 
 class Process {
 private:
-    /* data */
+    int			nbThreads;
 public:
     Process ();
+    Process (int);
     virtual ~Process ();
-
+    int			getNbThreads() const;
+    void		setNbThreads(int);
 };
 
 #endif /* !PROCESS_HPP */

@@ -1,6 +1,14 @@
 SRC_DIR		=	src/
 
-SRC			=	$(SRC_DIR)main.cpp		\
+SRC			=	$(SRC_DIR)main.cpp			\
+				$(SRC_DIR)CondVar.cpp		\
+				$(SRC_DIR)Core.cpp			\
+				$(SRC_DIR)InternetSocket.cpp	\
+				$(SRC_DIR)Mutex.cpp			\
+				$(SRC_DIR)NamedPipe.cpp		\
+				$(SRC_DIR)Process.cpp		\
+				$(SRC_DIR)Thread.cpp		\
+				$(SRC_DIR)UnixSocket.cpp	\
 
 CC			=	g++
 
