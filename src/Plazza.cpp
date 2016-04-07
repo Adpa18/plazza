@@ -25,4 +25,5 @@ bool    Plazza::newProcess(Process *ptr)
         plazza.threads.push_back(new Thread());
     }
     this->plazzas.push_back(plazza);
+    return (true);
 }

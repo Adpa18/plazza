@@ -5,10 +5,10 @@
 # include "Process.hpp"
 # include "Thread.hpp"
 
-typedef struct          s_plazza {
-    Process             *process;
-    std::vector<Thread> threads;
-}                       t_plazza;
+typedef struct              s_plazza {
+    Process                 *process;
+    std::vector<Thread*>    threads;
+}                           t_plazza;
 
 class Plazza {
 private:

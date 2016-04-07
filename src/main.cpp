@@ -12,5 +12,6 @@ int		main(int ac, char **av)
         return (1);
     }
     plazza = new Plazza(nb_threads);
+    plazza->run();
     return (0);
 }

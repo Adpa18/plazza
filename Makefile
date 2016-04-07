@@ -2,8 +2,8 @@ SRC_DIR		=	src/
 
 SRC			=	$(SRC_DIR)main.cpp			\
 				$(SRC_DIR)CondVar.cpp		\
-				$(SRC_DIR)Core.cpp			\
-				$(SRC_DIR)InternetSocket.cpp	\
+				$(SRC_DIR)Plazza.cpp		\
+				$(SRC_DIR)InternetSocket.cpp\
 				$(SRC_DIR)Mutex.cpp			\
 				$(SRC_DIR)NamedPipe.cpp		\
 				$(SRC_DIR)Process.cpp		\
@@ -16,8 +16,11 @@ RM			=	rm -rf
 
 NAME		=	plazza
 
-CPPFLAGS	=	-g -W -Wall -Wextra -Werror -fPIC
+CPPFLAGS	=	-W -Wall -Wextra -Werror -fPIC
+
 CPPFLAGS	+=	-I./inc/
+
+CPPFLAGS	+=	-std=c++11
 
 OBJ			=	$(SRC:%cpp=%o)
 
