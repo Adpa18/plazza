@@ -1,15 +1,18 @@
 #ifndef PROCESS_HPP
 # define PROCESS_HPP
 
+# include <unistd.h>
+# include <iostream>
+
+typedef void (*fptr)();
+
+
 class Process {
 private:
-    int			nbThreads;
 public:
-    Process ();
-    Process (int);
+    Process (fptr callback);
     virtual ~Process ();
-    int			getNbThreads() const;
-    void		setNbThreads(int);
+    bool    exec(fptr func);
 };
 
 #endif /* !PROCESS_HPP */

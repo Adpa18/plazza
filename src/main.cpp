@@ -1,14 +1,16 @@
-#include "plazza.hpp"
+#include <string>
+#include <iostream>
+#include "Plazza.hpp"
 
 int		main(int ac, char **av)
 {
-    int		nb_threads;
-    Core	core;
+    unsigned int	nb_threads;
+    Plazza	       *plazza;
 
-    if (ac < 2 || (nb_threads = atoi(av[1])) == 0) {
-        ERROR(USAGE, -1);
+    if (ac < 2 || (nb_threads = std::stoi(av[1])) == 0) {
+        std::cerr << "USAGE : ./plazza [NB_THREADS]" << std::endl;
+        return (1);
     }
-    core.setNbThreads(nb_threads);
-    std::cout << "You want us to use " << core.getNbThreads() << " threads per process." << std::endl << "Cordially." << std::endl;
+    plazza = new Plazza(nb_threads);
     return (0);
 }

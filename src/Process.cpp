@@ -1,13 +1,16 @@
 #include "Process.hpp"
 
-Process::Process(int threads) : nbThreads(threads)
+    Process::Process(fptr callback)
 {
+    pid_t   pid;
 
-}
-
-Process::Process()
-{
-
+    if ((pid = fork()) == 0) {
+        if (callback) {
+            callback();
+        }
+    } else if (pid == -1) {
+        throw std::bad_alloc();
+    }
 }
 
 Process::~Process()
@@ -15,12 +18,8 @@ Process::~Process()
 
 }
 
-int		Process::getNbThreads() const
+bool    Process::exec(fptr func)
 {
-    return (this->nbThreads);
-}
-
-void	Process::setNbThreads(int threads)
-{
-    this->nbThreads = threads;
+    func();
+    return (true);
 }
