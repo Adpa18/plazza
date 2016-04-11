@@ -2,7 +2,7 @@
 
 Plazza::Plazza(unsigned int nbThreads) : nbThreads(nbThreads)
 {
-    this->newProcess(nullptr);
+
 }
 
 Plazza::~Plazza()
@@ -10,20 +10,14 @@ Plazza::~Plazza()
 
 }
 
-bool    Plazza::run()
+void    Plazza::init()
 {
-    this->newProcess(new Process(nullptr));
-    return (true);
+
 }
 
-bool    Plazza::newProcess(Process *ptr)
+void    Plazza::run(unsigned int nbThreads)
 {
-    t_plazza    plazza;
+    for (size_t i = 0; i < nbThreads; i++) {
 
-    plazza.process = ptr;
-    for (unsigned int i = 0; i < this->nbThreads; i++) {
-        plazza.threads.push_back(new Thread());
     }
-    this->plazzas.push_back(plazza);
-    return (true);
 }

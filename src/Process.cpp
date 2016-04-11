@@ -17,9 +17,3 @@ Process::~Process()
 {
 
 }
-
-bool    Process::exec(fptr func)
-{
-    func();
-    return (true);
-}

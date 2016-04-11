@@ -5,20 +5,17 @@
 # include "Process.hpp"
 # include "Thread.hpp"
 
-typedef struct              s_plazza {
-    Process                 *process;
-    std::vector<Thread*>    threads;
-}                           t_plazza;
-
 class Plazza {
 private:
     unsigned int            nbThreads;
-    std::vector<t_plazza>   plazzas;
+    Process                 *process;
+    std::vector<Thread *>   threads;
 public:
     Plazza (unsigned int nbThreads);
     virtual ~Plazza ();
-    bool    run();
-    bool    newProcess(Process *ptr);
+    void    init();
+public:
+    static void    run(unsigned int nbThreads);
 };
 
 #endif /* !PLAZZA_HPP */

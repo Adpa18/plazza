@@ -6,13 +6,11 @@
 
 typedef void (*fptr)();
 
-
 class Process {
 private:
 public:
     Process (fptr callback);
     virtual ~Process ();
-    bool    exec(fptr func);
 };
 
 #endif /* !PROCESS_HPP */
