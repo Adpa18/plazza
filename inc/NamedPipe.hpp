@@ -5,7 +5,6 @@
 # include <iostream>
 # include <sstream>
 # include <fstream>
-# include <fcntl.h>
 # include <sys/stat.h>
 # include <unistd.h>
 
@@ -16,8 +15,8 @@ public:
     NamedPipe (const std::string &fileName);
     virtual ~NamedPipe ();
     std::string     getFileName(void) const;
-    void            write(const std::string &str) const;
-    std::string     read() const;
+    void            send(const std::string &str) const;
+    std::string     recv() const;
     void            operator>>(std::ostream &out);
 };
 
@@ -28,7 +27,7 @@ void            operator>>(X stream, const NamedPipe &obj)
     std::stringstream   ss;
 
     ss << stream;
-    obj.write(ss.str());
+    obj.send(ss.str());
 }
 
 #endif /* !NAMEDPIPE_HPP */

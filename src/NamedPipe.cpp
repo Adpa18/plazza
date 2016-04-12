@@ -15,7 +15,7 @@ std::string     NamedPipe::getFileName(void) const
     return (this->fileName);
 }
 
-void            NamedPipe::write(const std::string &str) const
+void            NamedPipe::send(const std::string &str) const
 {
     std::ofstream       file;
 
@@ -24,7 +24,7 @@ void            NamedPipe::write(const std::string &str) const
     file.close();
 }
 
-std::string     NamedPipe::read() const
+std::string     NamedPipe::recv() const
 {
     std::ifstream   file;
     std::string     str;
@@ -39,5 +39,5 @@ std::string     NamedPipe::read() const
 
 std::ostream    &operator<<(std::ostream &stream, const NamedPipe &obj)
 {
-    return (stream << obj.read());
+    return (stream << obj.recv());
 }
