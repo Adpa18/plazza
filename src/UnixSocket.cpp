@@ -39,7 +39,6 @@ std::string     UnixSocket::recv2() const
     int             n;
     char            buffer[BUFFER_SIZE];
 
-    unlink(local.sun_path);
     if (bind(this->fd, (struct sockaddr *)&this->local, sizeof(this->local)) == -1) {
         perror("bind");
     }
