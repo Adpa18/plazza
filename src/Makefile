@@ -6,7 +6,7 @@ RM= rm -rf
 
 NAME= ../plazza
 
-CPPFLAGS= -std=c++11 -g -O2 -I ../include -I ../lib/Thread/include/
+CPPFLAGS= -std=c++11 -g -O2 -I ../include -I ../lib/Thread/include/ -Wall -Wextra -Werror
 
 LDFLAGS= -static -lpthread -pthread -L../lib/ -lthread
 

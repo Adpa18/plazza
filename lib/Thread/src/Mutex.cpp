@@ -15,6 +15,11 @@ inline void Mutex::lock() {
         throw ThreadException(strerror(errno));
 }
 
+inline void Mutex::unlock() {
+    if (pthread_mutex_lock(&_mutex))
+        throw ThreadException(strerror(errno));
+}
+
 inline bool Mutex::trylock() {
     if (pthread_mutex_trylock(&_mutex) == 0)
         return true;

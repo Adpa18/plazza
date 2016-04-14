@@ -8,6 +8,7 @@
 void *print(void *param)
 {
     std::cout << (char *)param << std::endl;
+    return  NULL;
 }
 
 void *printinf(void *param)
@@ -16,6 +17,7 @@ void *printinf(void *param)
         std::cout << (char *)param << std::endl;
         sleep(3);
     }
+    return NULL;
 }
 
 int main()

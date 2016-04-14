@@ -1,8 +1,10 @@
 SRC=    src/Thread.cpp          \
-		src/ThreadPool.cpp      \
-		src/ThreadException.cpp \
-		src/AThreadable.cpp     \
-		src/Mutex.cpp           \
+				src/ThreadPool.cpp      \
+				src/ThreadException.cpp \
+				src/AThreadable.cpp     \
+				src/Mutex.cpp           \
+				src/Lockable.cpp        \
+				src/LockableQueue.cpp   \
 
 
 OBJS= $(SRC:%cpp=%o)
@@ -11,7 +13,7 @@ RM= rm -rf
 
 NAME= ../libthread.a
 
-CPPFLAGS= -std=c++11 -g -O2 -I ./include
+CPPFLAGS= -std=c++11 -g -O2 -I ./include -Wall -Wextra -Werror
 
 LDFLAGS= -lpthread
 
