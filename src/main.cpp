@@ -1,16 +1,30 @@
-#include <string>
+//
+// Created by consta_n on 12/04/16.
+//
+
 #include <iostream>
-#include "Plazza.hpp"
+#include "ThreadPool.hpp"
 
-int		main(int ac, char **av)
+void *print(void *param)
 {
-    unsigned int	nb_threads;
-    Plazza	       *plazza;
+    std::cout << (char *)param << std::endl;
+}
 
-    if (ac < 2 || (nb_threads = std::stoi(av[1])) == 0) {
-        std::cerr << "USAGE : ./plazza [NB_THREADS]" << std::endl;
-        return (1);
+void *printinf(void *param)
+{
+    while (42){
+        std::cout << (char *)param << std::endl;
+        sleep(3);
     }
-    plazza = new Plazza(nb_threads);
-    return (0);
+}
+
+int main()
+{
+    ThreadPool *pool = new ThreadPool(4);
+
+    pool->queueTask(print, (void *)"hey");
+    pool->queueTask(print, (void *)"coucou1");
+    delete pool;
+    std::cout << "end" << std::endl;
+    return 0;
 }
