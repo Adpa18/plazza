@@ -8,11 +8,11 @@
 #include <cstring>
 #include <pthread.h>
 #include "IMutex.hpp"
-#include "ThreadException.hpp"
+#include "MutexException.hpp"
 
 class Mutex : public  IMutex {
 private:
-    pthread_mutex_t _mutex;
+    pthread_mutex_t m_mutex;
 
 public:
     Mutex();
@@ -21,6 +21,9 @@ public:
     virtual void    lock();
     virtual void    unlock();
     virtual bool    trylock();
+
+public:
+    pthread_mutex_t const *getMutex() const;
 };
 
 

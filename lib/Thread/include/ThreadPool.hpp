@@ -10,16 +10,16 @@
 #include <queue>
 #include <functional>
 #include <unistd.h>
-#include "Thread.hpp"
-#include "LockableQueue.hpp"
+#include "Worker.hpp"
+#include "LockableQueueTask.hpp"
 
-class ThreadPool : public LockableQueue, public AThreadable {
+class ThreadPool : public LockableQueueTask, public AThreadable {
 
 private:
-    std::vector<Thread *>               _threads;
+    std::vector<Worker *>               m_threads;
 
     //Size of pool
-    size_t                              _size;
+    size_t                              m_size;
 
 protected:
     virtual void run();
@@ -36,11 +36,8 @@ public:
 
     //          GETTER          //
 public:
-    std::vector<Thread *>                                               getThreads() const;
-    std::queue< std::pair< std::function< void *(void *)>, void *> *>   getQueue() const;
+    std::vector<Worker *>                                               getThreads() const;
     size_t                                                              getSize() const;
-
-
 };
 
 

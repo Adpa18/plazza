@@ -6,43 +6,38 @@
 #include "ThreadPool.hpp"
 
 //Constructor
-ThreadPool::ThreadPool(Mutex const &mutex, size_t size) : LockableQueue(mutex), AThreadable() {
-    _size = size;
-    _status = ThreadStatus::RUN;
-    for (size_t i = 0; i < size; ++i) {
-        _threads.push_back(new Thread());
+ThreadPool::ThreadPool(Mutex const &mutex, size_t size) : LockableQueueTask(mutex), AThreadable() {
+    m_size = size;
+    for (size_t i = 0; i < m_size; ++i) {
+        m_threads.push_back(new Worker());
     }
 }
 
 //Get the threadpool
-std::vector<Thread *> ThreadPool::getThreads() const {
-    return _threads;
-}
-
-//Get the threadpool's tasks
-std::queue< std::pair< std::function< void *(void *)>, void *> *> ThreadPool::getQueue() const {
-    return _queue;
+std::vector<Worker *> ThreadPool::getThreads() const {
+    return m_threads;
 }
 
 //Get the threadpool's size
 size_t ThreadPool::getSize() const {
-    return _size;
+    return m_size;
 }
 
 void ThreadPool::run() {
 
-    while (_status != ThreadStatus::END || !_queue.empty())
+    _status = ThreadStatus::RUN;
+    while (_status != ThreadStatus::END || !m_queue.empty())
     {
-        std::cout << _queue.size() << std::endl;
+        std::cout << m_queue.size() << std::endl;
         std::cout << _status << std::endl;
-        for (std::vector<Thread *>::const_iterator elem = _threads.begin(); elem != _threads.end() ; ++elem) {
-            if (!_queue.empty() && (*elem)->getStatus() == ThreadStatus::PAUSE)
+        for (std::vector<Worker *>::const_iterator elem = m_threads.begin(); elem != m_threads.end() ; ++elem) {
+            if (!m_queue.empty() && (*elem)->getStatus() == ThreadStatus::PAUSE)
             {
-                std::pair< std::function< void *(void *)>, void *> *task;
+                Task *task;
 
-                task = _queue.front();
-                _queue.pop();
-                (*elem)->runTask(task->first, task->second);
+                task = m_queue.front();
+                m_queue.pop();
+                (*elem)->addTask(task);
                 delete task;
             }
         }
@@ -51,19 +46,19 @@ void ThreadPool::run() {
 }
 
 void ThreadPool::addThread(size_t size) {
-    _size += size;
+    m_size += size;
     for (size_t i = 0; i < size; ++i) {
-        _threads.push_back(new Thread());
+        m_threads.push_back(new Worker());
     }
 }
 
 //Destructor
 ThreadPool::~ThreadPool() {
 
-    if (!_queue.empty())
+    if (!m_queue.empty())
     {
-        std::cout << _queue.size() << std::endl;
-        for (std::vector<Thread *>::const_iterator elem = _threads.begin(); elem != _threads.end() ; ++elem) {
+        std::cout << m_queue.size() << std::endl;
+        for (std::vector<Worker *>::const_iterator elem = m_threads.begin(); elem != m_threads.end() ; ++elem) {
             (*elem)->join();
             std::cout << "join" << std::endl;
         }

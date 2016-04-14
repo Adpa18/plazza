@@ -10,33 +10,34 @@
 #include <pthread.h>
 #include <unistd.h>
 #include "AThreadable.hpp"
+#include "Task.hpp"
+#include "Mutex.hpp"
 
-class Thread : public AThreadable {
+class Worker : public AThreadable {
 
 private:
     //Current task
-    std::function<void *(void *)>   _task;
+    Task    *m_task[2];
 
-    //Task's param
-    void                            *_param;
+    Mutex   m_mutex;
 
     //Task's result
-    void                            *_result;
+    void    *m_result;
 
 private:
 
     //Execute the task
-    void *exec() const;
+    void *exec();
 
 protected:
     virtual void run();
 
 public:
-    Thread();
+    Worker();
 
-    virtual ~Thread();
+    virtual ~Worker();
 
-    void runTask(std::function<void *(void *)> func, void *param);
+    bool addTask(Task *task);
 
     //          GETTER          //
 public:
@@ -47,6 +48,5 @@ public:
     //          SETTER          //
 public:
     //Set the task
-    void   setTask(std::function<void *(void *)> func, void *);
 };
 #endif //THREAD_THREAD_HPP

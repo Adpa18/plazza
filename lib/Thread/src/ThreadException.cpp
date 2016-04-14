@@ -1,15 +1,9 @@
 //
-// Created by babiole on 11/04/16.
+// Created by consta_n on 14/04/16.
 //
 
 #include "ThreadException.hpp"
 
-ThreadException::ThreadException(const std::string &msg) : _msg(msg)
-{ }
+ThreadException::ThreadException(std::string const &msg) throw() : Exception(msg) { }
 
-ThreadException::~ThreadException() throw() { }
-
-const char* ThreadException::what() const throw() {
-    return _msg.c_str();
-}
-
+ThreadException::~ThreadException() { }

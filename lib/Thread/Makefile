@@ -1,10 +1,21 @@
-SRC=    src/Thread.cpp          \
-				src/ThreadPool.cpp      \
-				src/ThreadException.cpp \
-				src/AThreadable.cpp     \
-				src/Mutex.cpp           \
-				src/Lockable.cpp        \
-				src/LockableQueue.cpp   \
+SRC=    src/AThreadable.cpp         \
+        src/CondVar.cpp             \
+        src/CondVarException.cpp    \
+        src/Exception.cpp           \
+        src/Lockable.cpp            \
+        src/LockableQueueTask.cpp   \
+        src/Mutex.cpp               \
+        src/MutexException.cpp      \
+        src/Task.cpp                \
+        src/ThreadException.cpp     \
+        src/ThreadPool.cpp          \
+        src/Worker.cpp              \
+
+
+
+
+
+
 
 
 OBJS= $(SRC:%cpp=%o)

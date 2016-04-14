@@ -1,21 +1,17 @@
 //
-// Created by babiole on 11/04/16.
+// Created by consta_n on 14/04/16.
 //
 
-#ifndef THREAD_THREADEXCEPTION_HPP
-#define THREAD_THREADEXCEPTION_HPP
+#ifndef PLAZZA_THREADEXCEPTION_HPP
+#define PLAZZA_THREADEXCEPTION_HPP
 
+#include "Exception.hpp"
 
-#include <stdexcept>
-
-class ThreadException : public std::exception {
-private:
-    const std::string _msg;
+class ThreadException : public Exception {
 public:
-    ThreadException(const std::string &msg);
-    ~ThreadException() throw();
-    const char* what() const throw();
+    ThreadException(std::string const &msg) throw();
+    virtual ~ThreadException() throw();
 };
 
 
-#endif //THREAD_THREADEXCEPTION_HPP
+#endif //PLAZZA_THREADEXCEPTION_HPP

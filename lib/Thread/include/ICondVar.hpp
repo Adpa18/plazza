@@ -6,9 +6,11 @@
 #define PLAZZA_ICONDVAR_HPP
 
 
+#include "Mutex.hpp"
+
 class ICondVar {
 public:
-    virtual void wait(void) = 0;
+    virtual void wait(Mutex const &mutex) = 0;
     virtual void signal(void) = 0;
     virtual void broadcast(void) = 0;
 };

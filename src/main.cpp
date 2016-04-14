@@ -25,8 +25,11 @@ int main()
     Mutex mutex;
     ThreadPool *pool = new ThreadPool(mutex, 4);
 
-    pool->enqueue(print, (void *)"hey");
-    pool->enqueue(print, (void *)"coucou1");
+    pool->enqueue(new Task(print, (void *)"hey"));
+    pool->enqueue(new Task(print, (void *)"coucou1"));
+    pool->enqueue(new Task(print, (void *)"he1"));
+    pool->enqueue(new Task(print, (void *)"he2"));
+    pool->enqueue(new Task(print, (void *)"hey3"));
     delete pool;
     std::cout << "end" << std::endl;
     return 0;
