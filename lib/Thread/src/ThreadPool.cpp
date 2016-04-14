@@ -6,7 +6,7 @@
 #include "ThreadPool.hpp"
 
 //Constructor
-ThreadPool::ThreadPool(size_t size) : AThreadable() {
+ThreadPool::ThreadPool(Mutex const &mutex, size_t size) : LockableQueue(mutex), AThreadable() {
     _size = size;
     _status = ThreadStatus::RUN;
     for (size_t i = 0; i < size; ++i) {
@@ -21,7 +21,7 @@ std::vector<Thread *> ThreadPool::getThreads() const {
 
 //Get the threadpool's tasks
 std::queue< std::pair< std::function< void *(void *)>, void *> *> ThreadPool::getQueue() const {
-    return _tasks;
+    return _queue;
 }
 
 //Get the threadpool's size
@@ -31,28 +31,23 @@ size_t ThreadPool::getSize() const {
 
 void ThreadPool::run() {
 
-    while (_status != ThreadStatus::END || !_tasks.empty())
+    while (_status != ThreadStatus::END || !_queue.empty())
     {
-        std::cout << _tasks.size() << std::endl;
+        std::cout << _queue.size() << std::endl;
         std::cout << _status << std::endl;
         for (std::vector<Thread *>::const_iterator elem = _threads.begin(); elem != _threads.end() ; ++elem) {
-            if (!_tasks.empty() && (*elem)->getStatus() == ThreadStatus::PAUSE)
+            if (!_queue.empty() && (*elem)->getStatus() == ThreadStatus::PAUSE)
             {
                 std::pair< std::function< void *(void *)>, void *> *task;
 
-                task = _tasks.front();
-                _tasks.pop();
+                task = _queue.front();
+                _queue.pop();
                 (*elem)->runTask(task->first, task->second);
                 delete task;
             }
         }
         usleep(200);
     }
-}
-
-void ThreadPool::queueTask(std::function<void *(void *)> func, void *param) {
-
-    _tasks.push(new std::pair<std::function<void *(void *)>, void *>(func, param));
 }
 
 void ThreadPool::addThread(size_t size) {
@@ -65,9 +60,9 @@ void ThreadPool::addThread(size_t size) {
 //Destructor
 ThreadPool::~ThreadPool() {
 
-    if (!_tasks.empty())
+    if (!_queue.empty())
     {
-        std::cout << _tasks.size() << std::endl;
+        std::cout << _queue.size() << std::endl;
         for (std::vector<Thread *>::const_iterator elem = _threads.begin(); elem != _threads.end() ; ++elem) {
             (*elem)->join();
             std::cout << "join" << std::endl;
@@ -77,23 +72,3 @@ ThreadPool::~ThreadPool() {
         std::cout << "end j" << std::endl;
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

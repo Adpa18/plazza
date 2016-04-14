@@ -10,7 +10,7 @@
 #include "Lockable.hpp"
 
 class LockableQueue : public IGenericQueue, public Lockable {
-private:
+protected:
     std::queue< std::pair< std::function< void *(void *)>, void *> *>   _queue;
 
 public:

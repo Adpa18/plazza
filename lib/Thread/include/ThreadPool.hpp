@@ -11,14 +11,12 @@
 #include <functional>
 #include <unistd.h>
 #include "Thread.hpp"
+#include "LockableQueue.hpp"
 
-class ThreadPool : public AThreadable {
+class ThreadPool : public LockableQueue, public AThreadable {
 
 private:
     std::vector<Thread *>               _threads;
-
-    //Queue tasks
-    std::queue< std::pair< std::function< void *(void *)>, void *> *>   _tasks;
 
     //Size of pool
     size_t                              _size;
@@ -28,13 +26,10 @@ protected:
 
 public:
     //Constructor
-    ThreadPool(size_t size);
+    ThreadPool(Mutex const &mutex, size_t size);
 
     //Destructor
     ~ThreadPool();
-
-    //Add task
-    void queueTask(std::function<void *(void *)> func, void *param);
 
     //Add 'num' thread(s) to the pool
     void    addThread(size_t num);

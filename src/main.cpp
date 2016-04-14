@@ -22,10 +22,11 @@ void *printinf(void *param)
 
 int main()
 {
-    ThreadPool *pool = new ThreadPool(4);
+    Mutex mutex;
+    ThreadPool *pool = new ThreadPool(mutex, 4);
 
-    pool->queueTask(print, (void *)"hey");
-    pool->queueTask(print, (void *)"coucou1");
+    pool->enqueue(print, (void *)"hey");
+    pool->enqueue(print, (void *)"coucou1");
     delete pool;
     std::cout << "end" << std::endl;
     return 0;
