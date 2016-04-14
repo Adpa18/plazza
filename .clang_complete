@@ -1,2 +1,3 @@
 -W -Wall -Wextra -Werror
--I./inc
+-I./_old/inc
+-I./lib/Thread/include
