@@ -2,7 +2,7 @@
 // Created by consta_n on 14/04/16.
 //
 
-#include "CondVar.hpp"
+#include "../inc/CondVar.hpp"
 
 
 CondVar::CondVar() {

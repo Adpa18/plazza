@@ -2,7 +2,7 @@
 // Created by consta_n on 14/04/16.
 //
 
-#include "Task.hpp"
+#include "../inc/Task.hpp"
 
 Task::Task(std::function<void *(void *)> const &func, void *param) : m_func(func) {
     m_param = param;

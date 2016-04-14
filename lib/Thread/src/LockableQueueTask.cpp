@@ -2,7 +2,7 @@
 // Created by consta_n on 14/04/16.
 //
 
-#include "LockableQueueTask.hpp"
+#include "../inc/LockableQueueTask.hpp"
 
 LockableQueueTask::LockableQueueTask(Mutex const &mutex) : Lockable(mutex) {
 

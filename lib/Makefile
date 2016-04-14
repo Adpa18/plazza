@@ -1,4 +1,5 @@
-SUBDIRS= $(shell find -mindepth 1 -maxdepth 1 -type d)
+SUBDIRS	=	Thread	\
+			IPC
 
 all:
 	@echo -e "\033[32m=> Compiling Lib\033[00m"

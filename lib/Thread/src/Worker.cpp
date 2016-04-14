@@ -3,7 +3,7 @@
 //
 
 #include <iostream>
-#include "Worker.hpp"
+#include "../inc/Worker.hpp"
 
 Worker::Worker() : AThreadable() {
 
