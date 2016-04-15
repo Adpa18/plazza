@@ -6,12 +6,12 @@
 # include <utility>
 # include <string>
 
-enum CMD { PHONE_NUMBER, EMAIL, IP_ADRESS };
+enum Information { PHONE_NUMBER, EMAIL_ADDRESS, IP_ADDRESS };
 
 class Plazza {
 private:
     unsigned int    nbThreads;
-    std::vector<std::pair<CMD, std::stack<std::string>>> orders;
+    std::vector<std::pair<Information, std::stack<std::string> > > orders;
 public:
     Plazza (unsigned int nbThreads);
     virtual ~Plazza ();

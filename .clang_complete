@@ -2,3 +2,4 @@
 -I./_old/inc
 -I./lib/Thread/inc
 -I./lib/IPC/inc
+-I./inc
