@@ -16,14 +16,17 @@ void    Plazza::run()
 {
     std::string     line;
     NamedPipe       pla("plazza");
-    unsigned int    nbOrders;
 
+    (void)this->nbThreads;
     for (;;) {
         std::getline(std::cin, line);
-        // get by parsing
-        nbOrders = 2;
-        while (--nbOrders > 0) {
+        std::vector<std::pair<Information, std::stack<std::string>>> orders = Parser::parse(line);
+        for (size_t i = 0; i < orders.size(); i++) {
+
+        }
+        for (size_t i = 0; i < orders.size(); i++) {
             std::cout << pla << std::endl;
         }
+        orders.clear();
     }
 }

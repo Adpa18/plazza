@@ -91,12 +91,12 @@ std::vector<std::pair<Information, std::stack<std::string> > > parse(std::string
     return (ret);
 }
 
-int	main()
-{
-    std::string	tmp;
-
-    while (getline(std::cin, tmp)) {
-        parse(tmp);
-    }
-    return (0);
-}
+// int	main()
+// {
+//     std::string	tmp;
+//
+//     while (getline(std::cin, tmp)) {
+//         parse(tmp);
+//     }
+//     return (0);
+// }
