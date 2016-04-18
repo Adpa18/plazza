@@ -16,7 +16,7 @@ private:
 public:
     Parser ();
     virtual ~Parser ();
-    static std::vector<std::pair<Information, std::stack<std::string>>> parse(std::string line);
+    static std::vector<std::pair<Information, std::stack<std::string> > > parse(std::string line);
     static std::vector<std::string>    split(std::string str, char c);
 };
 
