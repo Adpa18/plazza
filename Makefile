@@ -5,6 +5,7 @@ SRC			=	$(SRC_DIR)main.cpp			\
                 $(SRC_DIR)Manager.cpp    	\
                 $(SRC_DIR)Parser.cpp    	\
 				$(SRC_DIR)Decrypt.cpp    	\
+				$(SRC_DIR)Find.cpp    		\
 
 CC			=	g++
 
