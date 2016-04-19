@@ -1,11 +1,12 @@
 #include <iostream>
-#include "include/ThreadPool.hpp"
+#include "ThreadPool.hpp"
 
 using namespace std;
 
 void *print(void *param)
 {
     std::cout << (char *)param << std::endl;
+    return (NULL);
 }
 
 void *printinf(void *param)
@@ -14,14 +15,20 @@ void *printinf(void *param)
         std::cout << (char *)param << std::endl;
         sleep(3);
     }
+    return (NULL);
 }
 
-int main() {
-    ThreadPool *pool = new ThreadPool(4);
+int main()
+{
+   Mutex mutex;
+   ThreadPool *pool = new ThreadPool(mutex, 4);
 
-    pool->queueTask(print, (void *)"hey");
-    pool->queueTask(print, (void *)"coucou1");
-    delete pool;
-    std::cout << "end" << std::endl;
-    return 0;
+   pool->enqueue(new Task(print, (void *)"hey"));
+   pool->enqueue(new Task(print, (void *)"coucou1"));
+   pool->enqueue(new Task(print, (void *)"he1"));
+   pool->enqueue(new Task(print, (void *)"he2"));
+   pool->enqueue(new Task(print, (void *)"hey3"));
+   delete pool;
+   std::cout << "end" << std::endl;
+   return 0;
 }

@@ -32,7 +32,6 @@ std::string     NamedPipe::recv() const
     file.open(this->getFileName());
     str = std::string((std::istreambuf_iterator<char>(file)),
                  std::istreambuf_iterator<char>());
-
     file.close();
     return (str);
 }

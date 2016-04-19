@@ -1,4 +1,5 @@
-SUBDIRS	=	Thread	\
+SUBDIRS	=	Process	\
+			Thread	\
 			IPC
 
 all:

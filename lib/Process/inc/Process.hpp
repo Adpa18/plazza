@@ -6,16 +6,22 @@
 # include <unistd.h>
 # include <vector>
 
+// class Process {
+// private:
+//     std::vector<pid_t>	pid;
+// public:
+//     Process ();
+//     virtual ~Process ();
+//     pid_t						init(std::function<int()> &);
+//     const std::vector<pid_t>	getPid() const;
+//     void						sendSignal(pid_t, int);
+//     void						sendSignalAll(int);
+// };
+
 class Process {
-private:
-    std::vector<pid_t>	pid;
 public:
-    Process ();
+    Process (const std::function<void()> &func);
     virtual ~Process ();
-    pid_t						init(std::function<int()> &);
-    const std::vector<pid_t>	getPid() const;
-    void						sendSignal(pid_t, int);
-    void						sendSignalAll(int);
 };
 
 #endif /* !PROCESS_HPP_ */

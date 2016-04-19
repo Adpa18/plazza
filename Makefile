@@ -2,7 +2,9 @@ SRC_DIR		=	src/
 
 SRC			=	$(SRC_DIR)main.cpp			\
                 $(SRC_DIR)Plazza.cpp    	\
-                $(SRC_DIR)parser.cpp    	\
+                $(SRC_DIR)Manager.cpp    	\
+                $(SRC_DIR)Parser.cpp    	\
+				$(SRC_DIR)Decrypt.cpp    	\
 
 CC			=	g++
 
@@ -10,13 +12,13 @@ RM			=	rm -rf
 
 NAME		=	plazza
 
-CPPFLAGS	=	-W -Wall -Wextra -Werror
+CPPFLAGS	=	-W -Wall -Wextra -Werror -g
 
-CPPFLAGS	+=	-I./inc/ -I./lib/IPC/inc -I./lib/Thread/inc
+CPPFLAGS	+=	-I./inc/ -I./lib/IPC/inc -I./lib/Thread/inc -I./lib/Process/inc
 
 CPPFLAGS	+=	-std=c++11
 
-LDFLAGS		= 	-L./lib/ -lIPC -lthread
+LDFLAGS		= 	-L./lib/ -lIPC -lthread -lProcess
 
 LDFLAGS		+= 	-lpthread -pthread
 

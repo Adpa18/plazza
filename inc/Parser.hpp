@@ -7,8 +7,7 @@
 # include <utility>
 # include <iostream>
 # include <sstream>
-
-enum Information { NONE, PHONE_NUMBER, EMAIL_ADDRESS, IP_ADDRESS };
+# include "Information.hpp"
 
 class Parser {
 private:
@@ -16,8 +15,9 @@ private:
 public:
     Parser ();
     virtual ~Parser ();
-    static std::vector<std::pair<Information, std::stack<std::string> > > parse(std::string line);
-    static std::vector<std::string>    split(std::string str, char c);
+    static std::vector<std::pair<Information, std::stack<std::string>>> parse(const std::string &line);
+    static std::pair<Information, std::stack<std::string>>              parseLine(const std::string &line);
+    static std::vector<std::string>                                     split(std::string str, char c);
 };
 
 #endif /* !PARSER_HPP */
