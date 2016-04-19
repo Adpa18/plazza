@@ -1,52 +1,35 @@
 //
-// Created by babiole on 11/04/16.
+// Created by consta_n on 15/04/16.
 //
 
-#ifndef THREAD_THREAD_HPP
-#define THREAD_THREAD_HPP
+#ifndef THREADSAFE_WORKER_HPP
+#define THREADSAFE_WORKER_HPP
 
-#include <cstdlib>
-#include <functional>
 #include <pthread.h>
-#include <unistd.h>
-#include "AThreadable.hpp"
 #include "Task.hpp"
-#include "Mutex.hpp"
 
-class Worker : public AThreadable {
-
-private:
-    //Current task
-    Task    *m_task[2];
-
-    Mutex   m_mutex;
-
-    //Task's result
-    void    *m_result;
-
-private:
-
-    //Execute the task
-    void *exec();
-
-protected:
-    virtual void run();
+class Worker {
+public:
+    pthread_t       _thread;
+    pthread_mutex_t _mutex;
+    pthread_cond_t  _cond_var;
+    bool            _is_running;
+    bool            _status;
+    Task            *task1;
+    Task            *task2;
+    size_t const    id;
 
 public:
     Worker();
-
-    virtual ~Worker();
-
+    Worker(pthread_mutex_t mutex);
+    ~Worker();
+    void run();
+    void execTask();
     bool addTask(Task *task);
 
-    //          GETTER          //
-public:
-    //Get task's result
-    void *getResult() const;
-
-
-    //          SETTER          //
-public:
-    //Set the task
+    static void *startThread(void *arg);
+    static size_t  uniqueID();
 };
-#endif //THREAD_THREAD_HPP
+
+
+#endif //THREADSAFE_WORKER_HPP

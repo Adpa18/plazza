@@ -1,44 +1,33 @@
 //
-// Created by babiole on 11/04/16.
+// Created by consta_n on 19/04/16.
 //
 
-#ifndef THREAD_THREADPOOL_HPP
-#define THREAD_THREADPOOL_HPP
+#ifndef THREADSAFE_THREADPOOL_HPP
+#define THREADSAFE_THREADPOOL_HPP
 
 
-#include <vector>
+#include <glob.h>
 #include <queue>
-#include <functional>
-#include <unistd.h>
 #include "Worker.hpp"
-#include "LockableQueueTask.hpp"
 
-class ThreadPool : public LockableQueueTask, public AThreadable {
-
+class ThreadPool {
 private:
-    std::vector<Worker *>               m_threads;
-
-    //Size of pool
-    size_t                              m_size;
-
-protected:
-    virtual void run();
+    const size_t            m_size;
+    std::vector<Worker *>   m_workers;
+    std::queue<Task *>      m_tasks;
+    bool                    m_status;
+    pthread_mutex_t         m_mutex;
+    pthread_t               m_thread;
 
 public:
-    //Constructor
-    ThreadPool(Mutex const &mutex, size_t size);
-
-    //Destructor
+    ThreadPool(size_t size);
     ~ThreadPool();
+    void start();
+    void addTask(Task *task);
+    void run ();
 
-    //Add 'num' thread(s) to the pool
-    void    addThread(size_t num);
-
-    //          GETTER          //
-public:
-    std::vector<Worker *>                                               getThreads() const;
-    size_t                                                              getSize() const;
+    static void *startThread(void *pool);
 };
 
 
-#endif //THREAD_THREADPOOL_HPP
+#endif //THREADSAFE_THREADPOOL_HPP

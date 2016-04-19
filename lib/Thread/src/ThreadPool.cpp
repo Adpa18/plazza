@@ -1,69 +1,71 @@
 //
-// Created by babiole on 11/04/16.
+// Created by consta_n on 19/04/16.
 //
 
 #include <iostream>
+#include <unistd.h>
 #include "ThreadPool.hpp"
 
-//Constructor
-ThreadPool::ThreadPool(Mutex const &mutex, size_t size) : LockableQueueTask(mutex), AThreadable() {
-    m_size = size;
+ThreadPool::ThreadPool(size_t size) : m_size(size) {
+
+    pthread_mutex_init(&m_mutex, NULL);
     for (size_t i = 0; i < m_size; ++i) {
-        m_threads.push_back(new Worker());
+        m_workers.push_back(new Worker());
     }
+    m_status = false;
 }
 
-//Get the threadpool
-std::vector<Worker *> ThreadPool::getThreads() const {
-    return m_threads;
-}
-
-//Get the threadpool's size
-size_t ThreadPool::getSize() const {
-    return m_size;
+void ThreadPool::start()
+{
+    pthread_create(&m_thread, NULL, startThread, this);
 }
 
 void ThreadPool::run() {
 
-    _status = ThreadStatus::RUN;
-    while (_status != ThreadStatus::END || !m_queue.empty())
-    {
-        std::cout << m_queue.size() << std::endl;
-        std::cout << _status << std::endl;
-        for (std::vector<Worker *>::const_iterator elem = m_threads.begin(); elem != m_threads.end() ; ++elem) {
-            if (!m_queue.empty() && (*elem)->getStatus() == ThreadStatus::PAUSE)
-            {
-                Task *task;
-
-                task = m_queue.front();
-                m_queue.pop();
-                (*elem)->addTask(task);
-                delete task;
+    pthread_mutex_lock(&m_mutex);
+    if (m_status)
+        return;
+    m_status = true;
+    pthread_mutex_unlock(&m_mutex);
+    while (m_status) {
+        for (std::vector<Worker *>::const_iterator worker = m_workers.begin(); worker != m_workers.end(); worker++)
+        {
+            while (!m_tasks.empty()) {
+                if (!(*worker)->addTask(m_tasks.front()))
+                    break;
+                else {
+                    m_tasks.pop();
+                }
             }
         }
-        usleep(200);
     }
 }
 
-void ThreadPool::addThread(size_t size) {
-    m_size += size;
-    for (size_t i = 0; i < size; ++i) {
-        m_threads.push_back(new Worker());
-    }
-}
-
-//Destructor
 ThreadPool::~ThreadPool() {
 
-    if (!m_queue.empty())
-    {
-        std::cout << m_queue.size() << std::endl;
-        for (std::vector<Worker *>::const_iterator elem = m_threads.begin(); elem != m_threads.end() ; ++elem) {
-            (*elem)->join();
-            std::cout << "join" << std::endl;
-        }
-        std::cout << "start j" << std::endl;
-        join();
-        std::cout << "end j" << std::endl;
+    while (!m_tasks.empty()) { usleep(200); };
+    pthread_mutex_lock(&m_mutex);
+    m_status = false;
+
+    for (size_t j = 0; j < m_size; ++j) {
+        delete m_workers[j];
     }
+    pthread_mutex_unlock(&m_mutex);
+    pthread_join(m_thread, NULL);
+}
+
+void ThreadPool::addTask(Task *task) {
+
+    pthread_mutex_lock(&m_mutex);
+    m_tasks.push(task);
+    pthread_mutex_unlock(&m_mutex);
+}
+
+void *ThreadPool::startThread(void *arg) {
+
+    ThreadPool *pool;
+
+    pool = static_cast<ThreadPool *>(arg);
+    pool->run();
+    return NULL;
 }

@@ -1,30 +1,21 @@
 //
-// Created by consta_n on 14/04/16.
+// Created by consta_n on 15/04/16.
 //
 
-#ifndef PLAZZA_TASK_HPP
-#define PLAZZA_TASK_HPP
+#ifndef THREADSAFE_TASK_HPP
+#define THREADSAFE_TASK_HPP
+
 
 #include <functional>
 
 class Task {
-
 private:
-    void                            *m_param;
-    std::function<void *(void *)>   m_func;
-    void                            *m_result;
-
+    std::function<void()> _func;
 public:
-    Task(std::function<void *(void *)> const &func, void *param);
+    Task(std::function<void()> const &func);
     ~Task();
-    void operator()();
-    void *run();
-
-public:
-    void const                       *getResult() const;
-    std::function<void *(void *)>  const  &getFunc() const;
-    void const                       *getParam() const;
+    void exec(void);
 };
 
 
-#endif //PLAZZA_TASK_HPP
+#endif //THREADSAFE_TASK_HPP
