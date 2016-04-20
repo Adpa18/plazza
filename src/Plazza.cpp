@@ -68,7 +68,7 @@ std::string     Plazza::getOrder(std::pair<Information, std::stack<std::string>>
         full_order += order.second.top() + " ";
         order.second.pop();
     }
-    full_order += order.first;
+    full_order += Find::map_info_str[order.first];
     return (full_order + ";");
 }
 

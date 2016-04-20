@@ -57,7 +57,7 @@ void    Manager::decode(std::pair<Information, std::stack<std::string>> order)
     NamedPipe               pla(FIFO_PLAZZA);
     Information             info = order.first;
     std::stack<std::string> files = order.second;
-    std::string             answer = "couocu";
+    std::string             answer = "";
 
     while (!files.empty()) {
         std::ifstream file(files.top());
@@ -66,7 +66,7 @@ void    Manager::decode(std::pair<Information, std::stack<std::string>> order)
             continue;
         }
         std::string str = std::string((std::istreambuf_iterator<char>(file)), std::istreambuf_iterator<char>());
-        std::vector<std::string> ret = Manager::decrypt(str, Find::map_info[info]);
+        std::vector<std::string> ret = Manager::decrypt(str, Find::map_info_regex[info]);
         for (std::string aws : ret) {
             answer += aws + " ";
         }

@@ -6,10 +6,15 @@
 # include "Information.hpp"
 
 namespace Find {
-    static std::map<Information, std::regex>   map_info = {
+    static std::map<Information, std::regex>   map_info_regex = {
             {PHONE_NUMBER, std::regex(REGEX_PHONE)},
-            {EMAIL_ADDRESS, std::regex(REGEX_IP)},
-            {IP_ADDRESS, std::regex(REGEX_MAIL)}
+            {EMAIL_ADDRESS, std::regex(REGEX_MAIL)},
+            {IP_ADDRESS, std::regex(REGEX_IP)}
+    };
+    static std::map<Information, std::string>   map_info_str = {
+            {PHONE_NUMBER, "PHONE_NUMBER"},
+            {EMAIL_ADDRESS, "EMAIL_ADDRESS"},
+            {IP_ADDRESS, "IP_ADDRESS"}
     };
     void						suppSpace(std::string &);
     std::vector<std::string>	findInfo(std::string, std::regex);
