@@ -25,8 +25,11 @@ void    Plazza::run()
         Manager *manager;
         std::string line;
         unsigned int count = 0;
-        std::cout << "Enter command : ";
+        // std::cout << "Enter command : ";
         std::getline(std::cin, line);
+        if (std::cin.eof() == true) {
+            break;
+        }
         this->orders = Parser::parse(line);
         if (this->orders.empty()) {
             std::cerr << "Unknow command" << std::endl;
@@ -42,7 +45,10 @@ void    Plazza::run()
             std::string str = pla.recv();
             std::vector<std::string> recvs = Parser::split(str, ';');
             for (std::string recv : recvs) {
-                std::cout << recv << std::endl;
+                std::vector<std::string> strs = Parser::split(recv, '|');
+                for (std::string answer : strs) {
+                    std::cout << answer << std::endl;
+                }
                 --count;
             }
         }

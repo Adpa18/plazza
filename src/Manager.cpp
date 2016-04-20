@@ -44,6 +44,7 @@ std::vector<std::string>    Manager::decrypt(const std::string &str, std::regex 
         }
     }
     for (size_t key = 0; key < 65536; key++) {
+        Decrypt::Xor(str, key);
         ret = Find::findInfo(Decrypt::Xor(str, key), reg);
         if (!ret.empty()) {
             return (ret);
@@ -68,9 +69,12 @@ void    Manager::decode(std::pair<Information, std::stack<std::string>> order)
         std::string str = std::string((std::istreambuf_iterator<char>(file)), std::istreambuf_iterator<char>());
         std::vector<std::string> ret = Manager::decrypt(str, Find::map_info_regex[info]);
         for (std::string aws : ret) {
-            answer += aws + " ";
+            answer += aws + "|";
         }
         file.close();
+    }
+    if (answer.empty()) {
+        answer = "NOTHING";
     }
     pla.send(answer + ";");
 }
