@@ -18,6 +18,7 @@ public:
     void            send(const std::string &str) const;
     std::string     recv() const;
     void            operator>>(std::ostream &out);
+    void            destroy();
 };
 
 std::ostream    &operator<<(std::ostream &stream, const NamedPipe &obj);

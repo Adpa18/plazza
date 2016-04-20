@@ -6,6 +6,7 @@
 # include "Information.hpp"
 # include "NamedPipe.hpp"
 # include "Parser.hpp"
+# include "Find.hpp"
 # include <stack>
 
 class Manager {
@@ -18,6 +19,7 @@ public:
     virtual ~Manager ();
     static void     run(unsigned int nbThreads, const std::string &pipeName);
     static void     decode(std::pair<Information, std::stack<std::string>> order);
+    static std::vector<std::string> decrypt(const std::string &str, std::regex reg);
     unsigned int    getFreePlaces() const;
     void            incFreePlaces();
     void            decFreePlaces();

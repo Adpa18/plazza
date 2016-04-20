@@ -3,7 +3,7 @@
 #include <iostream>
 #include <atomic>
 
-Plazza::Plazza(unsigned int nbThreads) : nbThreads(nbThreads)
+Plazza::Plazza(unsigned int nbThreads) : nbThreads(nbThreads), pla(FIFO_PLAZZA), killed(false)
 {
 
 }
@@ -13,28 +13,38 @@ Plazza::~Plazza()
     for (Manager *&manager : this->managers) {
         delete manager;
     }
+    this->pla.destroy();
 }
 
 void    Plazza::run()
 {
-    NamedPipe       pla(FIFO_PLAZZA);
-
     for (;;) {
+        if (killed) {
+            break;
+        }
         Manager *manager;
         std::string line;
         unsigned int count = 0;
-        while (line.empty()) {
-            std::getline(std::cin, line);
-        }
+        std::cout << "Enter command : ";
+        std::getline(std::cin, line);
         this->orders = Parser::parse(line);
+        if (this->orders.empty()) {
+            std::cerr << "Unknow command" << std::endl;
+            continue;
+        }
         for (std::pair<Information, std::stack<std::string>> order : this->orders) {
             manager = this->getAvaibleManager();
             manager->sendOrder(this->getOrder(order));
             manager->decFreePlaces();
             ++count;
         }
-        for (size_t i = 0; i < count; i++) {
-            std::cout << pla.recv() << std::endl;
+        while (count) {
+            std::string str = pla.recv();
+            std::vector<std::string> recvs = Parser::split(str, ';');
+            for (std::string recv : recvs) {
+                std::cout << recv << std::endl;
+                --count;
+            }
         }
         this->orders.clear();
     }
@@ -59,5 +69,10 @@ std::string     Plazza::getOrder(std::pair<Information, std::stack<std::string>>
         order.second.pop();
     }
     full_order += order.first;
-    return (full_order);
+    return (full_order + ";");
+}
+
+void            Plazza::kill()
+{
+    this->killed = true;
 }

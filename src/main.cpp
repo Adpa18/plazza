@@ -4,14 +4,16 @@
 #include <exception>
 #include "Plazza.hpp"
 
+Plazza	       *plazza;
+
 void    kill(int)
 {
+    plazza->kill();
     throw std::exception();
 }
 
 int		main(int ac, char **av)
 {
-    Plazza	       *plazza;
     unsigned int	nb_threads;
 
     if (ac < 2 || (nb_threads = std::stoi(av[1])) == 0) {

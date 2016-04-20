@@ -7,7 +7,7 @@ NamedPipe::NamedPipe(const std::string &fileName) : fileName(fileName + ".fifo")
 
 NamedPipe::~NamedPipe()
 {
-    unlink(this->fileName.c_str());
+
 }
 
 std::string     NamedPipe::getFileName(void) const
@@ -34,6 +34,11 @@ std::string     NamedPipe::recv() const
                  std::istreambuf_iterator<char>());
     file.close();
     return (str);
+}
+
+void            NamedPipe::destroy()
+{
+    unlink(this->fileName.c_str());
 }
 
 std::ostream    &operator<<(std::ostream &stream, const NamedPipe &obj)
