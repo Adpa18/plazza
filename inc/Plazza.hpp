@@ -6,9 +6,9 @@
 
 class Plazza {
 private:
+    std::vector<std::pair<Information, std::string>> orders;
     unsigned int            nbThreads;
     std::vector<Manager *>  managers;
-    std::vector<std::pair<Information, std::stack<std::string>>>    orders;
     NamedPipe               pla;
     bool                    killed;
 
@@ -17,7 +17,7 @@ public:
     virtual ~Plazza ();
     void            run();
     Manager         *&getAvaibleManager();
-    std::string     getOrder(std::pair<Information, std::stack<std::string>>) const;
+    std::string     getOrder(std::pair<Information, std::string> order) const;
     void            kill();
 };
 

@@ -1,27 +1,21 @@
 #include "Parser.hpp"
 
-Parser::Parser()
+std::vector<std::pair<Information, std::string>>    Parser::parse(const std::string &line)
 {
+    std::vector<std::pair<Information, std::string>>    orders;
+    std::pair<Information, std::stack<std::string>>     pair;
+    std::vector<std::string>                            sp;
 
-}
-
-Parser::~Parser()
-{
-
-}
-
-std::vector<std::pair<Information, std::stack<std::string>>>    Parser::parse(const std::string &line)
-{
-    std::vector<std::pair<Information, std::stack<std::string>>>    orders;
-    std::pair<Information, std::stack<std::string>>                 pair;
-    std::vector<std::string>                                        sp;
     sp = Parser::split(line, ';');
     for (const std::string &str : sp) {
         pair = Parser::parseLine(str);
         if (pair.second.empty() || pair.first == NONE) {
             continue;
         }
-        orders.push_back(pair);
+        while (!pair.second.empty()) {
+            orders.push_back(std::pair<Information, std::string>(pair.first, pair.second.top()));
+            pair.second.pop();
+        }
     }
     return (orders);
 }

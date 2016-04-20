@@ -23,10 +23,31 @@ void    Manager::run(unsigned int nbThreads, const std::string &pipeName)
     for(;;) {
         std::vector<std::string> orders = Parser::split(pipe.recv(), ';');
         for (const std::string str : orders) {
-            pool->addTask(new Task([str](){Manager::decode(Parser::parseLine(str));}));
+            std::pair<Information, std::stack<std::string>> order = Parser::parseLine(str);
+            pool->addTask(new Task([order](){Manager::decode(order.first, order.second.top());}));
         }
     }
     delete pool;
+}
+
+void    Manager::decode(Information info, std::string fileName)
+{
+    NamedPipe               pla(FIFO_PLAZZA);
+    std::string             answer = "";
+
+    std::ifstream file(fileName);
+    if (file.is_open()) {
+        std::string str = std::string((std::istreambuf_iterator<char>(file)), std::istreambuf_iterator<char>());
+        std::vector<std::string> ret = Manager::decrypt(str, Find::map_info_regex[info]);
+        for (std::string aws : ret) {
+            answer += aws + "|";
+        }
+    }
+    file.close();
+    if (answer.empty()) {
+        answer = "NOTHING";
+    }
+    pla.send(answer + ";");
 }
 
 std::vector<std::string>    Manager::decrypt(const std::string &str, std::regex reg)
@@ -51,32 +72,6 @@ std::vector<std::string>    Manager::decrypt(const std::string &str, std::regex 
         }
     }
     return (ret);
-}
-
-void    Manager::decode(std::pair<Information, std::stack<std::string>> order)
-{
-    NamedPipe               pla(FIFO_PLAZZA);
-    Information             info = order.first;
-    std::stack<std::string> files = order.second;
-    std::string             answer = "";
-
-    while (!files.empty()) {
-        std::ifstream file(files.top());
-        files.pop();
-        if (!file.is_open()) {
-            continue;
-        }
-        std::string str = std::string((std::istreambuf_iterator<char>(file)), std::istreambuf_iterator<char>());
-        std::vector<std::string> ret = Manager::decrypt(str, Find::map_info_regex[info]);
-        for (std::string aws : ret) {
-            answer += aws + "|";
-        }
-        file.close();
-    }
-    if (answer.empty()) {
-        answer = "NOTHING";
-    }
-    pla.send(answer + ";");
 }
 
 unsigned int    Manager::getFreePlaces() const

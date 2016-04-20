@@ -18,7 +18,7 @@ public:
     Manager (unsigned int nbThreads, const std::string &pipeName);
     virtual ~Manager ();
     static void     run(unsigned int nbThreads, const std::string &pipeName);
-    static void     decode(std::pair<Information, std::stack<std::string>> order);
+    static void     decode(Information info, std::string file);
     static std::vector<std::string> decrypt(const std::string &str, std::regex reg);
     unsigned int    getFreePlaces() const;
     void            incFreePlaces();

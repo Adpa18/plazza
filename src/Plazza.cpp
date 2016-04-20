@@ -32,10 +32,10 @@ void    Plazza::run()
         }
         this->orders = Parser::parse(line);
         if (this->orders.empty()) {
-            std::cerr << "Unknow command" << std::endl;
+            // std::cerr << "Unknow command" << std::endl;
             continue;
         }
-        for (std::pair<Information, std::stack<std::string>> order : this->orders) {
+        for (std::pair<Information, std::string> order : this->orders) {
             manager = this->getAvaibleManager();
             manager->sendOrder(this->getOrder(order));
             manager->decFreePlaces();
@@ -47,7 +47,9 @@ void    Plazza::run()
             for (std::string recv : recvs) {
                 std::vector<std::string> strs = Parser::split(recv, '|');
                 for (std::string answer : strs) {
-                    std::cout << answer << std::endl;
+                    if (answer != "NOTHING") {
+                        std::cout << answer << std::endl;
+                    }
                 }
                 --count;
             }
@@ -67,15 +69,9 @@ Manager     *&Plazza::getAvaibleManager()
     return (this->managers[this->managers.size() - 1]);
 }
 
-std::string     Plazza::getOrder(std::pair<Information, std::stack<std::string>> order) const
+std::string     Plazza::getOrder(std::pair<Information, std::string> order) const
 {
-    std::string full_order = "";
-    while (!order.second.empty()) {
-        full_order += order.second.top() + " ";
-        order.second.pop();
-    }
-    full_order += Find::map_info_str[order.first];
-    return (full_order + ";");
+    return (order.second + " " + Find::map_info_str[order.first] + ";");
 }
 
 void            Plazza::kill()
