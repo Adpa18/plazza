@@ -1,8 +1,9 @@
 #include "Plazza.hpp"
 #include "NamedPipe.hpp"
-#include "Explorer.hpp"
 #include <iostream>
-#include <atomic>
+#ifdef PLAZZA_GUI
+#include "Explorer.hpp"
+#endif
 
 Plazza::Plazza(unsigned int nbThreads) : nbThreads(nbThreads), pla(FIFO_PLAZZA), killed(false)
 {

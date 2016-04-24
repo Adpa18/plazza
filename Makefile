@@ -1,19 +1,19 @@
-SRC_DIR				=	src/
+SRC_DIR		=	src/
 
-SRC			=	$(SRC_DIR)main.cpp						\
-					$(SRC_DIR)Plazza.cpp    			\
-          $(SRC_DIR)Manager.cpp    			\
-          $(SRC_DIR)Parser.cpp    			\
-					$(SRC_DIR)Decrypt.cpp    			\
-					$(SRC_DIR)Find.cpp    				\
+SRC			=	$(SRC_DIR)main.cpp			\
+				$(SRC_DIR)Plazza.cpp    	\
+          		$(SRC_DIR)Manager.cpp    	\
+          		$(SRC_DIR)Parser.cpp    	\
+				$(SRC_DIR)Decrypt.cpp    	\
+				$(SRC_DIR)Find.cpp    		\
 
 
-SRC_UI	=		$(SRC)										\
-						$(SRC_DIR)exp.cpp			 		\
-						$(SRC_DIR)Explorer.cpp 		\
-						$(SRC_DIR)Menu.cpp    		\
-						$(SRC_DIR)MenuRight.cpp   \
-						$(SRC_DIR)MenuLeft.cpp   	\
+SRC_UI	=		$(SRC)						\
+				$(SRC_DIR)exp.cpp			\
+				$(SRC_DIR)Explorer.cpp 		\
+				$(SRC_DIR)Menu.cpp    		\
+				$(SRC_DIR)MenuRight.cpp   	\
+				$(SRC_DIR)MenuLeft.cpp   	\
 
 CC			=	g++
 
@@ -23,7 +23,9 @@ NAME		=	plazza
 
 CPPFLAGS	=	-W -Wall -Wextra -Werror
 
-CPPFLAGS	+=	-I./inc/ -I./lib/IPC/inc -I./lib/Thread/inc -I./lib/Process/inc -I./lib/ncurses/include
+CPPFLAGS	+=	-I./inc/ -I./lib/IPC/inc -I./lib/Thread/inc -I./lib/Process/inc
+
+CPPFLAGS	+=	-I./lib/ncurses/include
 
 CPPFLAGS	+=	-std=c++11
 
@@ -39,7 +41,7 @@ OBJ_UI	=	$(SRC_UI:%cpp=%o)
 	@$(CC) -c $(CPPFLAGS) $< -o $@
 
 ui:CPPFLAGS	+= -DPLAZZA_GUI
-ui:LDFLAGS	+= -lncursesw -lmenuw -lpanel
+ui:LDFLAGS	+= -L./lib/ncurses/lib -lpanelw -lmenuw -lncursesw
 
 $(NAME)	:	$(OBJ)
 	@make --no-print-directory -C lib;

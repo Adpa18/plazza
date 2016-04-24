@@ -112,6 +112,3 @@ void MenuLeft::setup(WINDOW *wind) {
         }
     }
 }
-
-
-
