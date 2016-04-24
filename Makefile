@@ -25,7 +25,7 @@ CPPFLAGS	=	-W -Wall -Wextra -Werror
 
 CPPFLAGS	+=	-I./inc/ -I./lib/IPC/inc -I./lib/Thread/inc -I./lib/Process/inc
 
-CPPFLAGS	+=	-I./lib/ncurses/include
+CPPFLAGS	+=	-I./lib/ncurses-local/include/ncursesw
 
 CPPFLAGS	+=	-std=c++11
 
@@ -41,7 +41,7 @@ OBJ_UI	=	$(SRC_UI:%cpp=%o)
 	@$(CC) -c $(CPPFLAGS) $< -o $@
 
 ui:CPPFLAGS	+= -DPLAZZA_GUI
-ui:LDFLAGS	+= -L./lib/ncurses/lib -lpanelw -lmenuw -lncursesw
+ui:LDFLAGS	+= -L./lib/ncurses-local/lib64 -lpanelw -lmenuw -lncursesw
 
 $(NAME)	:	$(OBJ)
 	@make --no-print-directory -C lib;
