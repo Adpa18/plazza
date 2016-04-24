@@ -38,7 +38,7 @@ void    Manager::decode(Information info, std::string fileName)
     std::ifstream file(fileName);
     if (file.is_open()) {
         std::string str = std::string((std::istreambuf_iterator<char>(file)), std::istreambuf_iterator<char>());
-        std::vector<std::string> ret = Manager::decrypt(str, Find::map_info_regex[info]);
+        std::vector<std::string> ret = Manager::decrypt(str, Find::map_info_string[info]);
         for (std::string aws : ret) {
             answer += aws + "|";
         }
@@ -50,7 +50,7 @@ void    Manager::decode(Information info, std::string fileName)
     pla.send(answer + ";");
 }
 
-std::vector<std::string>    Manager::decrypt(const std::string &str, std::regex reg)
+std::vector<std::string>    Manager::decrypt(const std::string &str, std::string reg)
 {
     std::vector<std::string>    ret;
 

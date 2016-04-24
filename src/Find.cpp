@@ -1,27 +1,35 @@
 #include "Find.hpp"
+#include <regex.h>
+#include <cstring>
 #include <iostream>
 
-void							Find::suppSpace(std::string &str)
+std::vector<std::string>		Find::findInfo(std::string str, std::string rgx)
 {
-    while (*str.begin() == ' ') {
-        str.erase(str.begin());
-    }
-    while (str[str.size() - 1] == ' ') {
-        str.pop_back();
-    }
-}
+    std::vector<std::string>    ret;
+    const char                  *cur;
+    regex_t                     r;
+    regmatch_t                  m[N_MATCH];
 
-std::vector<std::string>		Find::findInfo(std::string str, std::regex rgx)
-{
-    std::vector<std::string>	ret;
-    std::smatch					s;
-    std::string					tmp;
-
-    while (std::regex_search(str, s, rgx)) {
-        tmp = s.begin()->str();
-        Find::suppSpace(tmp);
-        ret.push_back(tmp);
-        str = str.erase(s.position(), s.length());
+    cur = str.c_str();
+    if (regcomp(&r, rgx.c_str(), REG_EXTENDED | REG_NEWLINE) != 0) {
+        throw std::runtime_error("regex");
     }
+    while (regexec(&r, cur, N_MATCH, m, 0) != REG_NOMATCH) {
+        for (size_t i = 0; i < N_MATCH; i++) {
+            if (m[i].rm_so == -1) {
+                break;
+            }
+            char *res = NULL;
+            if ((res = (char*)malloc(m[i].rm_eo - m[i].rm_so + 1)) == NULL) {
+                throw std::bad_alloc();
+            }
+            memcpy(res, cur + m[i].rm_so, m[i].rm_eo - m[i].rm_so);
+            res[m[i].rm_eo - m[i].rm_so] = 0;
+            ret.push_back(std::string(res));
+            free(res);
+        }
+        cur += m[0].rm_eo;
+    }
+    regfree(&r);
     return (ret);
 }
