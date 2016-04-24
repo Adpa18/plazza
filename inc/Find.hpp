@@ -3,6 +3,7 @@
 
 # include <regex>
 # include <vector>
+# include <map>
 # include "Information.hpp"
 
 namespace Find {
