@@ -5,7 +5,7 @@
 # include <map>
 # include "Information.hpp"
 
-# define N_MATCH    256
+# define N_MATCH    1
 
 namespace Find {
     static std::map<Information, std::string>   map_info_string = {
