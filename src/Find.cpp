@@ -15,17 +15,19 @@ std::vector<std::string>		Find::findInfo(std::string str, std::string rgx)
         throw std::runtime_error("regex");
     }
     while (regexec(&r, cur, N_MATCH, m, 0) != REG_NOMATCH) {
-        if (m[0].rm_so == -1) {
-            break;
+        for (size_t i = 0; i < N_MATCH; i++) {
+            if (m[i].rm_so == -1) {
+                break;
+            }
+            char *res = NULL;
+            if ((res = (char*)malloc(m[i].rm_eo - m[i].rm_so + 1)) == NULL) {
+                throw std::bad_alloc();
+            }
+            memcpy(res, cur + m[i].rm_so, m[i].rm_eo - m[i].rm_so);
+            res[m[i].rm_eo - m[i].rm_so] = 0;
+            ret.push_back(std::string(res));
+            free(res);
         }
-        char *res = NULL;
-        if ((res = (char*)malloc(m[0].rm_eo - m[0].rm_so + 1)) == NULL) {
-            throw std::bad_alloc();
-        }
-        memcpy(res, cur + m[0].rm_so, m[0].rm_eo - m[0].rm_so);
-        res[m[0].rm_eo - m[0].rm_so] = 0;
-        ret.push_back(std::string(res));
-        free(res);
         cur += m[0].rm_eo;
     }
     regfree(&r);
