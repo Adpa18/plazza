@@ -1,5 +1,6 @@
 #include "Plazza.hpp"
 #include "NamedPipe.hpp"
+#include "Explorer.hpp"
 #include <iostream>
 #include <atomic>
 
@@ -25,14 +26,16 @@ void    Plazza::run()
         Manager *manager;
         std::string line;
         unsigned int count = 0;
-        // std::cout << "Enter command : ";
+        #ifdef PLAZZA_GUI
+        line = explorer();
+        #else
         std::getline(std::cin, line);
         if (std::cin.eof() == true) {
             break;
         }
+        #endif
         this->orders = Parser::parse(line);
         if (this->orders.empty()) {
-            // std::cerr << "Unknow command" << std::endl;
             continue;
         }
         for (std::pair<Information, std::string> order : this->orders) {
