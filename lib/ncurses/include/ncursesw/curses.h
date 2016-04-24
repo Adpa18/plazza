@@ -41,23 +41,23 @@
 #define CURSES_H 1
 
 /* These are defined only in curses.h, and are used for conditional compiles */
-#define NCURSES_VERSION_MAJOR 6
-#define NCURSES_VERSION_MINOR 0
-#define NCURSES_VERSION_PATCH 20150808
+#define NCURSES_VERSION_MAJOR 5
+#define NCURSES_VERSION_MINOR 9
+#define NCURSES_VERSION_PATCH 20150516
 
 /* This is defined in more than one ncurses header, for identification */
 #undef  NCURSES_VERSION
-#define NCURSES_VERSION "6.0"
+#define NCURSES_VERSION "5.9"
 
 /*
  * Identify the mouse encoding version.
  */
-#define NCURSES_MOUSE_VERSION 2
+#define NCURSES_MOUSE_VERSION 1
 
 /*
  * Definitions to facilitate DLL's.
  */
-#include <ncurses_dll.h>
+#include <ncursesw/ncurses_dll.h>
 
 #if 1
 #include <stdint.h>
@@ -121,7 +121,7 @@
  * Control whether bindings for interop support are added.
  */
 #undef	NCURSES_INTEROP_FUNCS
-#define	NCURSES_INTEROP_FUNCS 1
+#define	NCURSES_INTEROP_FUNCS 0
 
 /*
  * The internal type used for window dimensions.
@@ -140,7 +140,7 @@
  * char* values, this is not always workable for 64-bit platforms.
  */
 #undef NCURSES_TPARM_ARG
-#define NCURSES_TPARM_ARG intptr_t
+#define NCURSES_TPARM_ARG long
 
 /*
  * NCURSES_CH_T is used in building the library, but not used otherwise in
@@ -150,12 +150,12 @@
 #undef	NCURSES_CH_T
 #define NCURSES_CH_T cchar_t
 
-#if 1 && defined(_LP64)
+#if 0 && defined(_LP64)
 typedef unsigned chtype;
 typedef unsigned mmask_t;
 #else
-typedef uint32_t chtype;
-typedef uint32_t mmask_t;
+typedef unsigned long chtype;
+typedef unsigned long mmask_t;
 #endif
 
 /*
@@ -398,9 +398,9 @@ typedef struct
 {
     attr_t	attr;
     wchar_t	chars[CCHARW_MAX];
-#if 1
+#if 0
 #undef NCURSES_EXT_COLORS
-#define NCURSES_EXT_COLORS 20150808
+#define NCURSES_EXT_COLORS 20150516
     int		ext_color;	/* color pair, must be more than 16-bits */
 #endif
 }
@@ -460,7 +460,7 @@ struct _win_st
 
 #if NCURSES_WIDECHAR
 	cchar_t  _bkgrnd;	/* current background char/attribute pair */
-#if 1
+#if 0
 	int	_color;		/* current color-pair for non-space character */
 #endif
 #endif
@@ -847,7 +847,7 @@ extern NCURSES_EXPORT(int) wtouchln (WINDOW *,int,int,int);		/* implemented */
 extern NCURSES_EXPORT(int) wvline (WINDOW *,chtype,int);		/* implemented */
 
 /*
- * These are also declared in <term.h>:
+ * These are also declared in <ncursesw/term.h>:
  */
 extern NCURSES_EXPORT(int) tigetflag (NCURSES_CONST char *);		/* implemented */
 extern NCURSES_EXPORT(int) tigetnum (NCURSES_CONST char *);		/* implemented */
@@ -888,7 +888,7 @@ extern NCURSES_EXPORT(int) getpary (const WINDOW *);			/* generated */
  */
 #if 1
 #undef  NCURSES_EXT_FUNCS
-#define NCURSES_EXT_FUNCS 20150808
+#define NCURSES_EXT_FUNCS 20150516
 typedef int (*NCURSES_WINDOW_CB)(WINDOW *, void *);
 typedef int (*NCURSES_SCREEN_CB)(SCREEN *, void *);
 extern NCURSES_EXPORT(bool) is_term_resized (int, int);
@@ -939,9 +939,9 @@ extern NCURSES_EXPORT(int) wgetscrreg (const WINDOW *, int *, int *); /* generat
  * Extra extension-functions, which pass a SCREEN pointer rather than using
  * a global variable SP.
  */
-#if 1
+#if 0
 #undef  NCURSES_SP_FUNCS
-#define NCURSES_SP_FUNCS 20150808
+#define NCURSES_SP_FUNCS 20150516
 #define NCURSES_SP_NAME(name) name##_sp
 
 /* Define the sp-funcs helper function */
@@ -1051,28 +1051,28 @@ extern NCURSES_EXPORT(int) NCURSES_SP_NAME(use_legacy_coding) (SCREEN*, int);	/*
 #define NCURSES_ATTR_SHIFT       8
 #define NCURSES_BITS(mask,shift) (NCURSES_CAST(chtype,(mask)) << ((shift) + NCURSES_ATTR_SHIFT))
 
-#define A_NORMAL	(1U - 1U)
-#define A_ATTRIBUTES	NCURSES_BITS(~(1U - 1U),0)
-#define A_CHARTEXT	(NCURSES_BITS(1U,0) - 1U)
-#define A_COLOR		NCURSES_BITS(((1U) << 8) - 1U,0)
-#define A_STANDOUT	NCURSES_BITS(1U,8)
-#define A_UNDERLINE	NCURSES_BITS(1U,9)
-#define A_REVERSE	NCURSES_BITS(1U,10)
-#define A_BLINK		NCURSES_BITS(1U,11)
-#define A_DIM		NCURSES_BITS(1U,12)
-#define A_BOLD		NCURSES_BITS(1U,13)
-#define A_ALTCHARSET	NCURSES_BITS(1U,14)
-#define A_INVIS		NCURSES_BITS(1U,15)
-#define A_PROTECT	NCURSES_BITS(1U,16)
-#define A_HORIZONTAL	NCURSES_BITS(1U,17)
-#define A_LEFT		NCURSES_BITS(1U,18)
-#define A_LOW		NCURSES_BITS(1U,19)
-#define A_RIGHT		NCURSES_BITS(1U,20)
-#define A_TOP		NCURSES_BITS(1U,21)
-#define A_VERTICAL	NCURSES_BITS(1U,22)
+#define A_NORMAL	(1UL - 1UL)
+#define A_ATTRIBUTES	NCURSES_BITS(~(1UL - 1UL),0)
+#define A_CHARTEXT	(NCURSES_BITS(1UL,0) - 1UL)
+#define A_COLOR		NCURSES_BITS(((1UL) << 8) - 1UL,0)
+#define A_STANDOUT	NCURSES_BITS(1UL,8)
+#define A_UNDERLINE	NCURSES_BITS(1UL,9)
+#define A_REVERSE	NCURSES_BITS(1UL,10)
+#define A_BLINK		NCURSES_BITS(1UL,11)
+#define A_DIM		NCURSES_BITS(1UL,12)
+#define A_BOLD		NCURSES_BITS(1UL,13)
+#define A_ALTCHARSET	NCURSES_BITS(1UL,14)
+#define A_INVIS		NCURSES_BITS(1UL,15)
+#define A_PROTECT	NCURSES_BITS(1UL,16)
+#define A_HORIZONTAL	NCURSES_BITS(1UL,17)
+#define A_LEFT		NCURSES_BITS(1UL,18)
+#define A_LOW		NCURSES_BITS(1UL,19)
+#define A_RIGHT		NCURSES_BITS(1UL,20)
+#define A_TOP		NCURSES_BITS(1UL,21)
+#define A_VERTICAL	NCURSES_BITS(1UL,22)
 
 #if 1
-#define A_ITALIC	NCURSES_BITS(1U,23)	/* ncurses extension */
+#define A_ITALIC	NCURSES_BITS(1UL,23)	/* ncurses extension */
 #endif
 
 /*
@@ -1146,7 +1146,7 @@ extern NCURSES_EXPORT(int) NCURSES_SP_NAME(use_legacy_coding) (SCREEN*, int);	/*
 #define wattroff(win,at)	wattr_off(win, NCURSES_CAST(attr_t, at), NULL)
 
 #if !NCURSES_OPAQUE
-#if NCURSES_WIDECHAR && 1
+#if NCURSES_WIDECHAR && 0
 #define wattrset(win,at)	((win) \
 				  ? ((win)->_color = NCURSES_CAST(int, PAIR_NUMBER(at)), \
                                      (win)->_attrs = NCURSES_CAST(attr_t, at), \
@@ -1294,7 +1294,7 @@ extern NCURSES_EXPORT(int) NCURSES_SP_NAME(use_legacy_coding) (SCREEN*, int);	/*
 #define slk_attr_on(a,v)		((v) ? ERR : slk_attron(a))
 
 #if !NCURSES_OPAQUE
-#if NCURSES_WIDECHAR && 1
+#if NCURSES_WIDECHAR && 0
 #define wattr_set(win,a,p,opts)		(((win) \
 					  ? ((win)->_attrs = ((a) & ~A_COLOR), \
 					     (win)->_color = (p)) \
@@ -1940,7 +1940,7 @@ extern NCURSES_EXPORT(mmask_t) NCURSES_SP_NAME(mousemask) (SCREEN*, mmask_t, mma
 extern NCURSES_EXPORT(int)     NCURSES_SP_NAME(mouseinterval) (SCREEN*, int);
 #endif
 
-//#define mouse_trafo(y,x,to_screen) wmouse_trafo(stdscr,y,x,to_screen)
+#define mouse_trafo(y,x,to_screen) wmouse_trafo(stdscr,y,x,to_screen)
 
 /* other non-XSI functions */
 
@@ -2003,7 +2003,7 @@ extern NCURSES_EXPORT(const char *) _nc_visbuf (const char *);
 #define OPTIMIZE_ALL		0xff	/* enable all optimizations (dflt) */
 #endif
 
-#include <unctrl.h>
+#include <ncursesw/unctrl.h>
 
 #ifdef __cplusplus
 

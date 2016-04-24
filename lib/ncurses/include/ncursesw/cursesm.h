@@ -36,14 +36,14 @@
 #ifndef NCURSES_CURSESM_H_incl
 #define NCURSES_CURSESM_H_incl 1
 
-#include <cursesp.h>
+#include <ncursesw/cursesp.h>
 
 extern "C" {
-#  include <menu.h>
+#  include <ncursesw/menu.h>
 }
 //
 // -------------------------------------------------------------------------
-// This wraps the ITEM type of <menu.h>
+// This wraps the ITEM type of <ncursesw/menu.h>
 // -------------------------------------------------------------------------
 //
 class NCURSES_IMPEXP NCursesMenuItem
@@ -196,7 +196,7 @@ extern "C" {
 
 //
 // -------------------------------------------------------------------------
-// This wraps the MENU type of <menu.h>
+// This wraps the MENU type of <ncursesw/menu.h>
 // -------------------------------------------------------------------------
 //
 class NCURSES_IMPEXP NCursesMenu : public NCursesPanel

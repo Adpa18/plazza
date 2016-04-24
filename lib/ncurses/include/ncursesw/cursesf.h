@@ -36,14 +36,14 @@
 #ifndef NCURSES_CURSESF_H_incl
 #define NCURSES_CURSESF_H_incl 1
 
-#include <cursesp.h>
+#include <ncursesw/cursesp.h>
 
 #ifndef __EXT_QNX
 #include <string.h>
 #endif
 
 extern "C" {
-#  include <form.h>
+#  include <ncursesw/form.h>
 }
 //
 // -------------------------------------------------------------------------

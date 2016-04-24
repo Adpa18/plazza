@@ -36,7 +36,7 @@
 #ifndef NCURSES_CURSESAPP_H_incl
 #define NCURSES_CURSESAPP_H_incl
 
-#include <cursslk.h>
+#include <ncursesw/cursslk.h>
 
 class NCURSES_IMPEXP NCursesApplication {
 public:
