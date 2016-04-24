@@ -1,11 +1,11 @@
-#include <ncursesw/ncurses.h>
-#include <ncursesw/menu.h>
-#include <panel.h>
 #include <string.h>
 #include <vector>
 #include <iostream>
 #include <limits.h>
 #include <sstream>
+#include "ncurses.h"
+#include "menu.h"
+#include "panel.h"
 #include "Explorer.hpp"
 #include "MenuLeft.hpp"
 

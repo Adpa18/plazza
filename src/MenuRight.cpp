@@ -5,7 +5,7 @@
 #include <iostream>
 #include <memory.h>
 #include <sys/stat.h>
-#include <menu.h>
+#include "menu.h"
 #include <algorithm>
 #include "MenuRight.hpp"
 
@@ -83,7 +83,3 @@ void MenuRight::setup(WINDOW *wind) {
     Menu::setup(wind);
     aff();
 }
-
-
-
-

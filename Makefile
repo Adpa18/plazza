@@ -8,7 +8,7 @@ SRC			=	$(SRC_DIR)main.cpp						\
 					$(SRC_DIR)Find.cpp    				\
 
 
-SRC_UI	=		$(SRC)												\
+SRC_UI	=		$(SRC)										\
 						$(SRC_DIR)exp.cpp			 		\
 						$(SRC_DIR)Explorer.cpp 		\
 						$(SRC_DIR)Menu.cpp    		\
@@ -23,7 +23,7 @@ NAME		=	plazza
 
 CPPFLAGS	=	-W -Wall -Wextra -Werror
 
-CPPFLAGS	+=	-I./inc/ -I./lib/IPC/inc -I./lib/Thread/inc -I./lib/Process/inc
+CPPFLAGS	+=	-I./inc/ -I./lib/IPC/inc -I./lib/Thread/inc -I./lib/Process/inc -I./lib/ncurses/include
 
 CPPFLAGS	+=	-std=c++11
 

@@ -2,7 +2,7 @@
 // Created by consta_n on 22/04/16.
 //
 
-#include <ncursesw/menu.h>
+#include "menu.h"
 #include "Menu.hpp"
 
 Menu::Menu() {
@@ -96,4 +96,3 @@ Menu::~Menu() {
 WINDOW *Menu::getWind() const {
     return m_wind;
 }
-
