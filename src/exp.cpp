@@ -214,12 +214,12 @@ std::string   explorer()
     std::stringstream ss;
 
     setlocale(LC_ALL, "");
+    initCurses();
+    initColor();
     Explorer    exp("./");
     exp.sort();
     MenuLeft        menu_left(&exp);
     MenuRight       menu_right(&exp);
-    initCurses();
-    initColor();
     init_wins(my_wins, 3);
     menu_left.setup(my_wins[0]);
     menu_right.setup(my_wins[1]);
