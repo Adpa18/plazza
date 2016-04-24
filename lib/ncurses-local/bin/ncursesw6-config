@@ -77,7 +77,7 @@ fi
 
 # with --disable-overwrite, we installed into a subdirectory, but transformed
 # the headers to include like this:
-#	<ncursesw/curses.h>
+#	"curses.h>
 if test xno = xno ; then
 	case $includedir in
 	$prefix/include/ncursesw)

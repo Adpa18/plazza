@@ -36,7 +36,7 @@
 #ifndef NCURSES_CURSESAPP_H_incl
 #define NCURSES_CURSESAPP_H_incl
 
-#include <ncursesw/cursslk.h>
+#include "cursslk.h"
 
 class NCURSES_IMPEXP NCursesApplication {
 public:
@@ -175,5 +175,5 @@ public:
   }
 
 };
- 
+
 #endif /* NCURSES_CURSESAPP_H_incl */

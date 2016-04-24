@@ -45,7 +45,7 @@
 extern "C" {
 #endif
 
-#include <ncursesw/term.h>
+#include "term.h"
 
     /*
      * see db_iterator.c - this enumeration lists the places searched for a

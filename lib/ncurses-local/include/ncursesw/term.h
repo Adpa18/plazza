@@ -44,7 +44,7 @@
 #undef  NCURSES_VERSION
 #define NCURSES_VERSION "6.0"
 
-#include <ncursesw/ncurses_dll.h>
+#include "ncurses_dll.h"
 
 #ifdef __cplusplus
 extern "C" {
@@ -100,7 +100,7 @@ extern "C" {
 #else /* !HAVE_TERMIO_H */
 
 #if __MINGW32__
-#  include <ncursesw/ncurses_mingw.h>
+#  include "ncurses_mingw.h"
 #  define TTY struct termios
 #else
 #undef TERMIOS

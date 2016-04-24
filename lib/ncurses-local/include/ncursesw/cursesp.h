@@ -36,10 +36,10 @@
 
 // $Id: cursesp.h,v 1.31 2014/08/09 22:06:26 Adam.Jiang Exp $
 
-#include <ncursesw/cursesw.h>
+#include "cursesw.h"
 
 extern "C" {
-#  include <ncursesw/panel.h>
+#  include "panel.h"
 }
 
 class NCURSES_IMPEXP NCursesPanel

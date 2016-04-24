@@ -3,4 +3,5 @@
 -I./lib/Thread/inc
 -I./lib/IPC/inc
 -I./lib/Process/inc
+-I./lib/ncurses-local/include/ncursesw
 -I./inc

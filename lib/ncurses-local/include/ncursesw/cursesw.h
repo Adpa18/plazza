@@ -33,10 +33,10 @@
 
 // $Id: cursesw.h,v 1.50 2014/02/01 22:17:37 tom Exp $
 
-#include <ncursesw/etip.h>
+#include "etip.h"
 
 extern "C" {
-#  include   <ncursesw/curses.h>
+#  include   "curses.h"
 }
 
 /* SCO 3.2v4 curses.h includes term.h, which defines lines as a macro.
