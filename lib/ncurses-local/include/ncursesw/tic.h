@@ -45,7 +45,7 @@
 extern "C" {
 #endif
 
-#include "curses.h"	/* for the _tracef() prototype, ERR/OK, bool defs */
+#include <ncursesw/curses.h>	/* for the _tracef() prototype, ERR/OK, bool defs */
 
 /*
 ** The format of compiled terminfo files is as follows:

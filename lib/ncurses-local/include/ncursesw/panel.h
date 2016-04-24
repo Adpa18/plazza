@@ -39,7 +39,7 @@
 #ifndef NCURSES_PANEL_H_incl
 #define NCURSES_PANEL_H_incl 1
 
-#include "curses.h"
+#include <ncursesw/curses.h>
 
 typedef struct panel
 {

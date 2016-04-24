@@ -36,8 +36,8 @@
 #define FORM_H
 /* *INDENT-OFF*/
 
-#include "curses.h"
-#include "eti.h"
+#include <ncursesw/curses.h>
+#include <ncursesw/eti.h>
 
 #ifdef __cplusplus
   extern "C" {

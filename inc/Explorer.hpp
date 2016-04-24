@@ -5,8 +5,8 @@
 #ifndef EXPLORATEUR_EXPLORER_HPP
 #define EXPLORATEUR_EXPLORER_HPP
 
-#include <ncursesw/ncurses.h>
-#include <ncursesw/menu.h>
+#include "ncurses.h"
+#include "menu.h"
 #include <iostream>
 #include <vector>
 #include <map>

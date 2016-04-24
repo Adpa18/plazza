@@ -39,7 +39,7 @@
 #undef  NCURSES_VERSION
 #define NCURSES_VERSION "6.0"
 
-#include "ncurses_dll.h"
+#include <ncursesw/ncurses_dll.h>
 
 #ifdef __cplusplus
 extern "C"
@@ -48,16 +48,16 @@ extern "C"
 
 #include <sys/types.h>
 
-#undef  NCURSES_CONST
-#define NCURSES_CONST const
+#undef  NCURSES_CONST 
+#define NCURSES_CONST const 
 
-#undef  NCURSES_OSPEED
-#define NCURSES_OSPEED short
+#undef  NCURSES_OSPEED 
+#define NCURSES_OSPEED short 
 
 extern NCURSES_EXPORT_VAR(char) PC;
 extern NCURSES_EXPORT_VAR(char *) UP;
 extern NCURSES_EXPORT_VAR(char *) BC;
-extern NCURSES_EXPORT_VAR(NCURSES_OSPEED) ospeed;
+extern NCURSES_EXPORT_VAR(NCURSES_OSPEED) ospeed; 
 
 #if !defined(NCURSES_TERM_H_incl)
 extern NCURSES_EXPORT(char *) tgetstr (NCURSES_CONST char *, char **);

@@ -5,7 +5,7 @@
 #include <iostream>
 #include <memory.h>
 #include <sys/stat.h>
-#include <ncursesw/menu.h>
+#include "menu.h"
 #include <algorithm>
 #include "MenuRight.hpp"
 

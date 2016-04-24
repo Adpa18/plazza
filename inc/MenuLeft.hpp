@@ -5,7 +5,7 @@
 #ifndef EXPLORATEUR_MENULEFT_HPP
 #define EXPLORATEUR_MENULEFT_HPP
 
-#include <ncursesw/menu.h>
+#include "menu.h"
 #include <map>
 #include "Menu.hpp"
 #include "MenuRight.hpp"

@@ -36,7 +36,7 @@
 #ifndef NCURSES_CURSSLK_H_incl
 #define NCURSES_CURSSLK_H_incl
 
-#include "cursesw.h"
+#include <ncursesw/cursesw.h>
 
 class NCURSES_IMPEXP Soft_Label_Key_Set {
 public:
